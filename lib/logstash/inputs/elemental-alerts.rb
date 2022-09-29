@@ -30,7 +30,9 @@ class LogStash::Inputs::ElementalAlerts < LogStash::Inputs::Base
 
   #User
   config :user , :validate => :string, :default => "admin", :required => true 
-
+ 
+  #http/https
+  config :http , :validate => :string, :default => "http", :required => true
   # Set how frequently messages should be sent.
   #
   # The default, `1`, means send a message every second.
@@ -40,12 +42,18 @@ class LogStash::Inputs::ElementalAlerts < LogStash::Inputs::Base
   def register
     @host = Socket.gethostname
     @el= { 
-    	"ip" => "10.13.135.241", 
-    	"https" =>"http",
+    	"ip" => "0.0.0.0", 
+    	"http" =>"http",
     	"login" => "admin",
-    	"key" => "BjhCPxX6wj7WZxR8sWzZ",
-    	"per_page" => "10"
+    	"key" => "api",
+    	"per_page" => "100"
     }
+
+    @el["ip"]=@ip
+    @el["http"]=@http
+    @el["login"]=@user
+    @el["key"]=@api
+
   end # def register
 
   def run(queue)
