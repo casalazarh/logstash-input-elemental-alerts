@@ -58,7 +58,7 @@ gem build logstash-input-elemental-alerts.gemspec
 sudo /usr/share/logstash/bin/logstash-plugin install logstash-input-elemental-alerts-1.0.0.gem
 ```
 
-### 3 Test
+### 3. Test
 
 ```ruby
 #Replace the parameter for real values
