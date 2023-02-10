@@ -94,9 +94,17 @@ class LogStash::Inputs::ElementalAlerts < LogStash::Inputs::Base
 		output=Hash.new
 		i=0;
 		root.elements.each do |e| 
+			if !e.elements["live_event"]
+				
+				live_event="NA" # Default value when live_event does not exist
+			else
+				live_event= e.elements["live_event"].text
+			end
 			
 			output["#{i}"]={'type' => e.name,
 				   'id' => e.elements["id"].text,
+				   'last_set' => e.elements["last_set"].text,
+				   'live_event' => live_event,
 				   "message" => e.elements["message"].text}
 				  '"}'
 		
